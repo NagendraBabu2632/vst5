@@ -56,8 +56,8 @@ const SPCChart = ({ config, delay }: SPCChartProps) => {
   const stats = useMemo(() => calcStats(values, config.target, config.lsl, config.usl), []);
   const histogramData = useMemo(() => buildHistogramData(values), []);
 
-  // Moisture chart: derive USL/LSL from ±3σ of the average
-  const useSigma = config.dataKey === "moisture";
+  // Derive USL/LSL from ±3σ of the average for all charts
+  const useSigma = true;
   const effectiveConfig: ChartConfig = useMemo(() => {
     if (!useSigma) return config;
     const a = stats.avg, s = stats.sigma;
