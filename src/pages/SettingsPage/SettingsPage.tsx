@@ -157,17 +157,25 @@ const SettingsPage = () => {
 
   return (
     <DashboardLayout title="Settings">
-      <div className="settings-page">
-        <Tabs defaultValue="sku">
-          <TabsList className="settings-tabs-list">
-            <TabsTrigger value="sku">Family</TabsTrigger>
-            <TabsTrigger value="tariff">Tariff</TabsTrigger>
-            <TabsTrigger value="moisture-specs">Moisture Specs</TabsTrigger>
-            <TabsTrigger value="process">Process Params</TabsTrigger>
-            <TabsTrigger value="upload">Production Upload</TabsTrigger>
-            <TabsTrigger value="ec-losses">Electricity Consumption Losses</TabsTrigger>
-            <TabsTrigger value="alerts">Alert Configurator</TabsTrigger>
-          </TabsList>
+      <div className="settings-page settings-page--shell">
+        <Tabs defaultValue="sku" orientation="vertical" className="settings-shell">
+          <aside className="settings-nav">
+            <div className="settings-nav-head">
+              <h2 className="settings-nav-title">Configuration</h2>
+              <p className="settings-nav-sub">Manage system-wide settings</p>
+            </div>
+            <TabsList className="settings-nav-list">
+              <TabsTrigger value="sku" className="settings-nav-item"><Package className="settings-nav-icon" /><span>Family</span></TabsTrigger>
+              <TabsTrigger value="tariff" className="settings-nav-item"><IndianRupee className="settings-nav-icon" /><span>Tariff</span></TabsTrigger>
+              <TabsTrigger value="moisture-specs" className="settings-nav-item"><FlaskConical className="settings-nav-icon" /><span>Moisture Specs</span></TabsTrigger>
+              <TabsTrigger value="process" className="settings-nav-item"><Gauge className="settings-nav-icon" /><span>Process Params</span></TabsTrigger>
+              <TabsTrigger value="upload" className="settings-nav-item"><Upload className="settings-nav-icon" /><span>Production Upload</span></TabsTrigger>
+              <TabsTrigger value="ec-losses" className="settings-nav-item"><Zap className="settings-nav-icon" /><span>Electricity Losses</span></TabsTrigger>
+              <TabsTrigger value="alerts" className="settings-nav-item"><Bell className="settings-nav-icon" /><span>Alert Configurator</span></TabsTrigger>
+            </TabsList>
+          </aside>
+
+          <section className="settings-workspace">
 
           <TabsContent value="sku">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
