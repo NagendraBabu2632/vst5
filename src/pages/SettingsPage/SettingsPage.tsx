@@ -529,6 +529,7 @@ const SettingsPage = () => {
           <TabsContent value="alerts">
             <AlertConfigurator />
           </TabsContent>
+          </section>
         </Tabs>
       </div>
     </DashboardLayout>
