@@ -1,0 +1,3 @@
+/* BarChart component styles */
+/* Top5 tooltip styling lives in ExecutiveSummary.css (.exec-top5-tooltip*). */
+/* Bar visuals are styled inline via SVG props inside BarChart.tsx. */
