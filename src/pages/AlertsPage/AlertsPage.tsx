@@ -21,7 +21,7 @@ const units = ["All", "PMD", "SMD"];
 const lines = ["All", "Line 1", "Line 2", "Line 3", "Line 4", "Line 5"];
 const machines = ["All", "Compressor A", "Dryer B", "Motor C", "Furnace D", "Pump E", "Conveyor F"];
 const parameters = ["All", "Moisture", "Humidity", "Temperature"];
-const shifts = ["All", "Shift A", "Shift B", "Shift C"];
+const periods = ["Last One Hour", "Last 24 Hours", "Last One Month"];
 
 const SeverityIcon = ({ severity }: { severity: string }) => {
   if (severity === "Critical") return <XCircle style={{ color: "var(--critical)", width: 16, height: 16 }} />;
@@ -124,7 +124,7 @@ const AlertsPage = () => {
   const [filterLine, setFilterLine] = useState("All");
   const [filterMachine, setFilterMachine] = useState("All");
   const [filterParam, setFilterParam] = useState("All");
-  const [filterShift, setFilterShift] = useState("All");
+  const [filterPeriod, setFilterPeriod] = useState("Last One Hour");
   const [statusFilter, setStatusFilter] = useState<"all" | "active" | "acknowledged">("all");
   const [severityTab, setSeverityTab] = useState("all");
 
@@ -139,7 +139,7 @@ const AlertsPage = () => {
     if (severityTab === "critical") list = list.filter((a) => a.severity === "Critical");
     if (severityTab === "warning") list = list.filter((a) => a.severity === "Warning");
     return list;
-  }, [alerts, filterUnit, filterLine, filterMachine, filterParam, filterShift, statusFilter, severityTab]);
+  }, [alerts, filterUnit, filterLine, filterMachine, filterParam, statusFilter, severityTab]);
 
   const kpi = useMemo(() => ({
     total: filtered.length,
@@ -175,7 +175,7 @@ const AlertsPage = () => {
           { label: "Line", value: filterLine, setter: setFilterLine, opts: lines },
           { label: "Machine", value: filterMachine, setter: setFilterMachine, opts: machines },
           { label: "Parameter", value: filterParam, setter: setFilterParam, opts: parameters },
-          { label: "Shift", value: filterShift, setter: setFilterShift, opts: shifts },
+          { label: "Period", value: filterPeriod, setter: setFilterPeriod, opts: periods },
         ].map((f) => (
           <div key={f.label} className="alerts-filter">
             <label className="alerts-filter-label">{f.label}</label>
