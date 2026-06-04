@@ -1,10 +1,12 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { Bell, Settings } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Bell, Settings, ChevronRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import UserProfileDropdown from "@/components/UserProfileDropdown";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
