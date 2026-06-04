@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dropdown from "@/components/Dropdown";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -165,18 +164,7 @@ const SettingsPage = () => {
   return (
     <DashboardLayout title="Settings">
       <div className="settings-page">
-        <Tabs value={activeTab} onValueChange={(v) => navigate(`/settings?tab=${v}`, { replace: true })}>
-          <TabsList className="settings-tabs-list">
-            <TabsTrigger value="sku">Family</TabsTrigger>
-            <TabsTrigger value="tariff">Tariff</TabsTrigger>
-            <TabsTrigger value="moisture-specs">Moisture Specs</TabsTrigger>
-            <TabsTrigger value="process">Process Params</TabsTrigger>
-            <TabsTrigger value="upload">Production Upload</TabsTrigger>
-            <TabsTrigger value="ec-losses">Electricity Consumption Losses</TabsTrigger>
-            <TabsTrigger value="alerts">Alert Configurator</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="sku">
+          {activeTab === "sku" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
               <div className="settings-section-head"><Package /><h3 className="settings-section-title">Family Configuration</h3></div>
               <Separator />
@@ -205,9 +193,9 @@ const SettingsPage = () => {
                 ))}
               </div>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="tariff">
+          {activeTab === "tariff" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
               <div className="settings-section-head"><IndianRupee /><h3 className="settings-section-title">Tariff Settings</h3></div>
               <p className="settings-section-desc">Tariff is used for cost calculations across Energy dashboards and reports.</p>
@@ -355,9 +343,9 @@ const SettingsPage = () => {
                 </div>
               </div>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="moisture-specs">
+          {activeTab === "moisture-specs" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
               <div className="settings-section-head"><FlaskConical /><h3 className="settings-section-title">Moisture Parameter Specifications</h3></div>
               <p className="settings-section-desc">
@@ -444,9 +432,9 @@ const SettingsPage = () => {
                 </div>
               </div>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="process">
+          {activeTab === "process" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
               <div className="settings-section-head"><Gauge /><h3 className="settings-section-title">Process Parameter Configuration</h3></div>
               <Separator />
@@ -470,9 +458,9 @@ const SettingsPage = () => {
               </div>
               <div className="settings-save-row"><Button>Save Parameters</Button></div>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="upload">
+          {activeTab === "upload" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
               <div className="settings-section-head"><Upload /><h3 className="settings-section-title">Production Data Upload</h3></div>
               <Separator />
@@ -486,9 +474,9 @@ const SettingsPage = () => {
                 </Button>
               </div>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="ec-losses">
+          {activeTab === "ec-losses" && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="chart-container settings-section">
               <div className="settings-section-head"><Zap /><h3 className="settings-section-title">Electricity Consumption Losses</h3></div>
               <p className="settings-section-desc">Download the standard template, fill in your factory's electricity loss data, and upload it back to keep loss calculations up to date.</p>
@@ -523,12 +511,11 @@ const SettingsPage = () => {
                 </div>
               </div>
             </motion.div>
-          </TabsContent>
+          )}
 
-          <TabsContent value="alerts">
+          {activeTab === "alerts" && (
             <AlertConfigurator />
-          </TabsContent>
-        </Tabs>
+          )}
       </div>
     </DashboardLayout>
   );
