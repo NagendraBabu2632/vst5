@@ -1,5 +1,6 @@
 import './SettingsPage.css';
 import { useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
 import { motion } from "framer-motion";
 import { Bell, Gauge, Package, Upload, Plus, Trash2, Pencil, IndianRupee, FlaskConical, History, Download, Zap, CalendarIcon, AlertTriangle, Mail, X } from "lucide-react";
@@ -155,10 +156,16 @@ const SettingsPage = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const validTabs = ["sku", "tariff", "moisture-specs", "process", "upload", "ec-losses", "alerts"];
+  const urlTab = new URLSearchParams(location.search).get("tab");
+  const activeTab = urlTab && validTabs.includes(urlTab) ? urlTab : "sku";
+
   return (
     <DashboardLayout title="Settings">
       <div className="settings-page">
-        <Tabs defaultValue="sku">
+        <Tabs value={activeTab} onValueChange={(v) => navigate(`/settings?tab=${v}`, { replace: true })}>
           <TabsList className="settings-tabs-list">
             <TabsTrigger value="sku">Family</TabsTrigger>
             <TabsTrigger value="tariff">Tariff</TabsTrigger>
