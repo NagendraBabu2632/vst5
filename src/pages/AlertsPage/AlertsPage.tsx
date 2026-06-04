@@ -17,6 +17,7 @@ import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+const units = ["All", "PMD", "SMD"];
 const lines = ["All", "Line 1", "Line 2", "Line 3", "Line 4", "Line 5"];
 const machines = ["All", "Compressor A", "Dryer B", "Motor C", "Furnace D", "Pump E", "Conveyor F"];
 const parameters = ["All", "Moisture", "Humidity", "Temperature"];
