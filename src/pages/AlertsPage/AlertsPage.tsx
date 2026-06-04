@@ -120,6 +120,7 @@ const AlertsPage = () => {
   const [ackAlert, setAckAlert] = useState<Alert | null>(null);
   const [ackComment, setAckComment] = useState("");
 
+  const [filterUnit, setFilterUnit] = useState("All");
   const [filterLine, setFilterLine] = useState("All");
   const [filterMachine, setFilterMachine] = useState("All");
   const [filterParam, setFilterParam] = useState("All");
@@ -129,6 +130,7 @@ const AlertsPage = () => {
 
   const filtered = useMemo(() => {
     let list = alerts;
+    if (filterUnit !== "All") list = list.filter((a) => a.unitName === filterUnit);
     if (filterLine !== "All") list = list.filter((a) => a.productionLine === filterLine);
     if (filterMachine !== "All") list = list.filter((a) => a.equipment === filterMachine);
     if (filterParam !== "All") list = list.filter((a) => a.parameter === filterParam);
@@ -137,7 +139,7 @@ const AlertsPage = () => {
     if (severityTab === "critical") list = list.filter((a) => a.severity === "Critical");
     if (severityTab === "warning") list = list.filter((a) => a.severity === "Warning");
     return list;
-  }, [alerts, filterLine, filterMachine, filterParam, filterShift, statusFilter, severityTab]);
+  }, [alerts, filterUnit, filterLine, filterMachine, filterParam, filterShift, statusFilter, severityTab]);
 
   const kpi = useMemo(() => ({
     total: filtered.length,
