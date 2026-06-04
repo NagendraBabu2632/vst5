@@ -25,6 +25,7 @@ export interface Alert {
   threshold?: number;
   unit?: string;
   costImpact?: number;
+  unitName?: string;
 }
 
 export interface EnergyData {
