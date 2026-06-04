@@ -1,5 +1,6 @@
 import './SettingsPage.css';
 import { useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
 import { motion } from "framer-motion";
 import { Bell, Gauge, Package, Upload, Plus, Trash2, Pencil, IndianRupee, FlaskConical, History, Download, Zap, CalendarIcon, AlertTriangle, Mail, X } from "lucide-react";
