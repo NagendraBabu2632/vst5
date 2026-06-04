@@ -171,6 +171,7 @@ const AlertsPage = () => {
     <DashboardLayout title="Alerts Management">
       <div className="alerts-filters">
         {[
+          { label: "Unit", value: filterUnit, setter: setFilterUnit, opts: units },
           { label: "Line", value: filterLine, setter: setFilterLine, opts: lines },
           { label: "Machine", value: filterMachine, setter: setFilterMachine, opts: machines },
           { label: "Parameter", value: filterParam, setter: setFilterParam, opts: parameters },
