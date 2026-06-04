@@ -13,7 +13,19 @@ interface DashboardLayoutProps {
   title: string;
 }
 
+const SETTINGS_TABS: { value: string; label: string }[] = [
+  { value: "sku", label: "Family" },
+  { value: "tariff", label: "Tariff" },
+  { value: "moisture-specs", label: "Moisture Specs" },
+  { value: "process", label: "Process Params" },
+  { value: "upload", label: "Production Upload" },
+  { value: "ec-losses", label: "Electricity Consumption Losses" },
+  { value: "alerts", label: "Alert Configurator" },
+];
+
 const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
+  const navigate = useNavigate();
+  const [settingsOpen, setSettingsOpen] = useState(false);
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
