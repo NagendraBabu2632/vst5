@@ -97,8 +97,9 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
   const minVal = Math.min(...data);
   const maxVal = Math.max(...data);
   const avgVal = data.length ? totalKwh / data.length : 0;
-  const barGap = 2;
-  const barW = Math.max(2, innerW / data.length - barGap);
+  const barGap = 4;
+  const barStep = innerW / data.length;
+  const barW = Math.max(2, barStep - barGap);
 
   return (
     <div className="energy-trend-panel">
