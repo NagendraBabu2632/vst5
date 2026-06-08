@@ -81,7 +81,7 @@ function toDayValues(id: string, hourly: number[], n: number): number[] {
 const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: () => void }) => {
   const [chartType, setChartType] = useState<"line" | "histogram">("line");
   const w = 760, h = 240;
-  const m = { top: 16, right: 16, bottom: 32, left: 40 };
+  const m = { top: 16, right: 16, bottom: 32, left: 56 };
   const innerW = w - m.left - m.right;
   const innerH = h - m.top - m.bottom;
   const data = asset.hourly;
@@ -145,7 +145,7 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
         </div>
       </div>
       <div className="energy-trend-chart-wrap">
-        <svg width="100%" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="energy-trend-svg">
+        <svg width="100%" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="xMidYMid meet" className="energy-trend-svg">
           <defs>
             <linearGradient id="energyTrendFill" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.35" />
@@ -197,6 +197,7 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
               </>
             )}
             <line x1={0} x2={innerW} y1={innerH} y2={innerH} stroke="var(--border)" />
+            <line x1={0} x2={0} y1={0} y2={innerH} stroke="var(--border)" />
             {HOUR_LABELS.map((label, i) => {
               if (i % 3 !== 0) return null;
               return (
