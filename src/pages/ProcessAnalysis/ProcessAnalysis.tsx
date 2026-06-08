@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Droplets, Thermometer, Wind, BarChart3, TrendingUp, Download, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { format } from "date-fns";
+import { format, subDays, startOfMonth } from "date-fns";
 import { SPCTimeseriesChart, type SPCLineConfig } from "@/components/charts/LineChart";
 import { SPCHistogramChart } from "@/components/charts/BarChart";
 
