@@ -107,9 +107,8 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
             <span><span className="energy-trend-stat-label">Min</span> <strong>{fmt(minVal)} kWh</strong></span>
             <span><span className="energy-trend-stat-label">Max</span> <strong>{fmt(maxVal)} kWh</strong></span>
             <span><span className="energy-trend-stat-label">Average</span> <strong>{fmt(avgVal)} kWh</strong></span>
-          </div>
-          <div className="energy-trend-meta">
-            Total <strong>{fmt(totalKwh)} kWh</strong> · Peak <strong>{HOUR_LABELS[peakIdx]}</strong> ({fmt(data[peakIdx])} kWh)
+            <span><span className="energy-trend-stat-label">Total</span> <strong>{fmt(totalKwh)} kWh</strong></span>
+            <span><span className="energy-trend-stat-label">Peak</span> <strong>{HOUR_LABELS[peakIdx]}</strong> ({fmt(data[peakIdx])} kWh)</span>
           </div>
         </div>
         <button type="button" className="energy-trend-close" onClick={onClose} aria-label="Close trend">
