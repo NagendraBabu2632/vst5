@@ -27,8 +27,7 @@ const UserProfileDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-muted transition-colors outline-none">
-          <span className="text-sm font-medium text-foreground hidden sm:block">{displayName}</span>
+        <button className="flex items-center rounded-lg px-2 py-1.5 hover:bg-muted transition-colors outline-none">
           <Avatar className="h-8 w-8">
             <AvatarImage src="" alt={displayName} />
             <AvatarFallback className="bg-primary text-primary-foreground text-xs font-semibold">{initials}</AvatarFallback>
