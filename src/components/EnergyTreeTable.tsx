@@ -97,8 +97,9 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
   const minVal = Math.min(...data);
   const maxVal = Math.max(...data);
   const avgVal = data.length ? totalKwh / data.length : 0;
-  const barGap = 2;
-  const barW = Math.max(2, innerW / data.length - barGap);
+  const barGap = 4;
+  const barStep = innerW / data.length;
+  const barW = Math.max(2, barStep - barGap);
 
   return (
     <div className="energy-trend-panel">
@@ -175,9 +176,9 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
             ) : (
               <>
                 {data.map((v, i) => {
-                  const bx = xFor(i) - barW / 2;
+                  const bx = i * barStep + (barStep - barW) / 2;
                   const by = yFor(v);
-                  const bh = innerH - by;
+                  const bh = Math.max(0, innerH - by);
                   return (
                     <rect
                       key={i}
@@ -186,9 +187,8 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
                       width={barW}
                       height={bh}
                       rx={2}
-                      fill={i === peakIdx ? "var(--primary)" : "url(#energyTrendFill)"}
-                      stroke="var(--primary)"
-                      strokeWidth={i === peakIdx ? 0 : 1}
+                      fill="var(--primary)"
+                      fillOpacity={i === peakIdx ? 1 : 0.75}
                     >
                       <title>{`${HOUR_LABELS[i]}: ${fmt(v)} kWh`}</title>
                     </rect>
