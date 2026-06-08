@@ -145,7 +145,7 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
         </div>
       </div>
       <div className="energy-trend-chart-wrap">
-        <svg width="100%" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="energy-trend-svg">
+        <svg width="100%" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="xMidYMid meet" className="energy-trend-svg">
           <defs>
             <linearGradient id="energyTrendFill" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.35" />
