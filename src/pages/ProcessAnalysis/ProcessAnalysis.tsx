@@ -84,19 +84,34 @@ const SPCChart = ({ config, delay, period }: SPCChartProps) => {
     };
   }, [useSigma, stats.avg, stats.sigma]);
 
+  const periodRange = useMemo(() => getPeriodRange(period), [period]);
+
+  const displayData = useMemo(() => {
+    if (!periodRange) return processData;
+    const { start, end } = periodRange;
+    const span = end.getTime() - start.getTime();
+    const n = processData.length;
+    return processData.map((d, i) => ({
+      ...d,
+      timestamp: new Date(start.getTime() + (n > 1 ? (i / (n - 1)) * span : 0)).toISOString(),
+    }));
+  }, [periodRange]);
+
   const spanHours = useMemo(() => {
-    if (processData.length < 2) return 0;
-    const first = new Date(processData[0].timestamp).getTime();
-    const last = new Date(processData[processData.length - 1].timestamp).getTime();
+    if (displayData.length < 2) return 0;
+    const first = new Date(displayData[0].timestamp).getTime();
+    const last = new Date(displayData[displayData.length - 1].timestamp).getTime();
     return (last - first) / (1000 * 60 * 60);
-  }, []);
+  }, [displayData]);
 
   const timeTickFormatter = (v: string) => {
     const d = new Date(v);
+    if (multiDay) return format(d, "dd MMM");
     if (spanHours <= 24) return format(d, "HH:mm");
     if (spanHours <= 24 * 7) return format(d, "dd MMM HH:mm");
     return format(d, "dd MMM");
   };
+
 
   const handleDownload = useCallback(() => {
     const csv = ["Timestamp,Sample,Value", ...processData.map((d) => `${d.timestamp},${d.time},${d[config.dataKey as keyof typeof d]}`)].join("\n");
