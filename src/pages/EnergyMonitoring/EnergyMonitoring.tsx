@@ -1,7 +1,7 @@
 import './EnergyMonitoring.css';
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import AssetFilter from "@/components/AssetFilter";
+
 import { motion } from "framer-motion";
 import Dropdown from "@/components/Dropdown";
 import EnergyTreeTable from "@/components/EnergyTreeTable";
@@ -24,7 +24,6 @@ const EnergyMonitoring = () => {
   return (
     <DashboardLayout title="Energy Monitoring & Efficiency">
       <div className="energy-topbar">
-        <AssetFilter />
         <div className="energy-topbar-right">
           <div className="energy-field">
             <label className="energy-field-label">Period</label>
