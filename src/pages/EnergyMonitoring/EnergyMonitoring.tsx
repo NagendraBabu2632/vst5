@@ -24,7 +24,6 @@ const EnergyMonitoring = () => {
   return (
     <DashboardLayout title="Energy Monitoring & Efficiency">
       <div className="energy-topbar">
-        <AssetFilter />
         <div className="energy-topbar-right">
           <div className="energy-field">
             <label className="energy-field-label">Period</label>
