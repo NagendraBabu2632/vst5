@@ -81,7 +81,7 @@ function toDayValues(id: string, hourly: number[], n: number): number[] {
 const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: () => void }) => {
   const [chartType, setChartType] = useState<"line" | "histogram">("line");
   const w = 760, h = 240;
-  const m = { top: 16, right: 16, bottom: 32, left: 40 };
+  const m = { top: 16, right: 16, bottom: 32, left: 56 };
   const innerW = w - m.left - m.right;
   const innerH = h - m.top - m.bottom;
   const data = asset.hourly;
