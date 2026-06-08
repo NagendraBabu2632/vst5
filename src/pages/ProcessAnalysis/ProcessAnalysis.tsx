@@ -44,13 +44,26 @@ const chartConfigs: ChartConfig[] = [
   { title: "Humidity Control Chart", icon: Wind, iconColor: "text-chart-humidity", dataKey: "humidity", lineColor: "hsl(290, 60%, 55%)", target: 58, lsl: 50, usl: 65, lcl: 52, ucl: 63, unit: "% RH", tagId: "HC", yDomain: [45, 70] },
 ];
 
-interface SPCChartProps { config: ChartConfig; delay: number; }
+interface SPCChartProps { config: ChartConfig; delay: number; period: string; }
 
-const SPCChart = ({ config, delay }: SPCChartProps) => {
+const isMultiDayPeriod = (p: string) => p === "last7" || p === "last30" || p === "thisMonth";
+
+const getPeriodRange = (p: string): { start: Date; end: Date } | null => {
+  const now = new Date();
+  if (p === "last7") return { start: subDays(now, 6), end: now };
+  if (p === "last30") return { start: subDays(now, 29), end: now };
+  if (p === "thisMonth") return { start: startOfMonth(now), end: now };
+  return null;
+};
+
+const SPCChart = ({ config, delay, period }: SPCChartProps) => {
   const [viewMode, setViewMode] = useState<"timeseries" | "histogram">("timeseries");
   const [showLimits, setShowLimits] = useState(true);
   const [showSPCRules, setShowSPCRules] = useState(true);
+  const multiDay = isMultiDayPeriod(period);
   const [xAxisMode, setXAxisMode] = useState<"sample" | "time">("time");
+  const effectiveXAxisMode: "sample" | "time" = multiDay ? "time" : xAxisMode;
+
 
   const values = processData.map((d) => d[config.dataKey as keyof typeof d] as number);
   const stats = useMemo(() => calcStats(values, config.target, config.lsl, config.usl), []);
