@@ -206,7 +206,7 @@ const SPCChart = ({ config, delay, period }: SPCChartProps) => {
         ))}
       </div>
 
-      {viewMode === "timeseries" && (
+      {viewMode === "timeseries" && !multiDay && (
         <div className="process-xaxis-toggle">
           <Button variant={xAxisMode === "time" ? "secondary" : "ghost"} size="sm" className="h-6 text-[10px] px-2" onClick={() => setXAxisMode("time")}>Time View</Button>
           <Button variant={xAxisMode === "sample" ? "secondary" : "ghost"} size="sm" className="h-6 text-[10px] px-2" onClick={() => setXAxisMode("sample")}>Sample View</Button>
@@ -215,9 +215,9 @@ const SPCChart = ({ config, delay, period }: SPCChartProps) => {
 
       {viewMode === "timeseries" ? (
         <SPCTimeseriesChart
-          data={processData}
+          data={displayData}
           config={effectiveConfig}
-          xAxisMode={xAxisMode}
+          xAxisMode={effectiveXAxisMode}
           showLimits={showLimits}
           showSPCRules={showSPCRules}
           avg={stats.avg}
@@ -225,6 +225,7 @@ const SPCChart = ({ config, delay, period }: SPCChartProps) => {
           tooltip={<CustomTooltip />}
           timeTickFormatter={timeTickFormatter}
         />
+
       ) : (
         <SPCHistogramChart
           data={histogramData}
