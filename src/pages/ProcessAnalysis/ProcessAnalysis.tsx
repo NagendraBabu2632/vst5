@@ -127,7 +127,7 @@ const SPCChart = ({ config, delay, period }: SPCChartProps) => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null;
     const point = payload[0];
-    const dataPoint = processData.find((d) => (xAxisMode === "time" ? format(new Date(d.timestamp), "HH:mm") : d.time) === label);
+    const dataPoint = displayData.find((d) => (effectiveXAxisMode === "time" ? (multiDay ? format(new Date(d.timestamp), "dd MMM") : format(new Date(d.timestamp), "HH:mm")) : d.time) === label);
     return (
       <div className="process-tooltip">
         <p className="process-tooltip-time">
