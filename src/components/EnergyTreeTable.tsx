@@ -197,6 +197,7 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
               </>
             )}
             <line x1={0} x2={innerW} y1={innerH} y2={innerH} stroke="var(--border)" />
+            <line x1={0} x2={0} y1={0} y2={innerH} stroke="var(--border)" />
             {HOUR_LABELS.map((label, i) => {
               if (i % 3 !== 0) return null;
               return (
