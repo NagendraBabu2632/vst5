@@ -83,16 +83,27 @@ const generateRunTimes = (family: string, period: string) => {
 const formatRun = (r: { start: Date; end: Date }) =>
   `${format(r.start, "yyyy-MM-dd HH:mm:ss")} → ${format(r.end, "yyyy-MM-dd HH:mm:ss")}`;
 
-const ProcessFilters = () => {
+interface ProcessFiltersProps {
+  period?: string;
+  onPeriodChange?: (v: string) => void;
+}
+
+const ProcessFilters = ({ period: periodProp, onPeriodChange }: ProcessFiltersProps = {}) => {
   const [unit, setUnit] = useState<string>("");
   const [line, setLine] = useState<string>("");
   const [machine, setMachine] = useState<string>("");
   const [parameter, setParameter] = useState<string>("");
   const [family, setFamily] = useState<string>("");
-  const [period, setPeriod] = useState<string>("last7");
+  const [periodInner, setPeriodInner] = useState<string>("last7");
+  const period = periodProp ?? periodInner;
+  const setPeriod = (v: string) => {
+    if (onPeriodChange) onPeriodChange(v);
+    else setPeriodInner(v);
+  };
   const [runTime, setRunTime] = useState<string>("");
 
   const runTimes = useMemo(() => generateRunTimes(family, period), [family, period]);
+
 
   const handleApply = () => {
     if (!family) {
