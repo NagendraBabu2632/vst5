@@ -79,6 +79,7 @@ function toDayValues(id: string, hourly: number[], n: number): number[] {
 
 // Inline trend chart shown when an asset is selected (hourly trend)
 const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: () => void }) => {
+  const [chartType, setChartType] = useState<"line" | "histogram">("line");
   const w = 760, h = 240;
   const m = { top: 16, right: 16, bottom: 32, left: 40 };
   const innerW = w - m.left - m.right;
@@ -96,6 +97,8 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
   const minVal = Math.min(...data);
   const maxVal = Math.max(...data);
   const avgVal = data.length ? totalKwh / data.length : 0;
+  const barGap = 2;
+  const barW = Math.max(2, innerW / data.length - barGap);
 
   return (
     <div className="energy-trend-panel">
@@ -110,9 +113,35 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
             <span><span className="energy-trend-stat-label">Total</span> <strong>{fmt(totalKwh)} kWh</strong></span>
           </div>
         </div>
-        <button type="button" className="energy-trend-close" onClick={onClose} aria-label="Close trend">
-          <X size={14} />
-        </button>
+        <div className="energy-trend-actions">
+          <div className="energy-trend-chart-toggle" role="tablist" aria-label="Chart type">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={chartType === "line"}
+              className={`energy-trend-chart-toggle-btn${chartType === "line" ? " is-active" : ""}`}
+              onClick={() => setChartType("line")}
+              aria-label="Line chart"
+              title="Line chart"
+            >
+              <LineChartIcon size={14} />
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={chartType === "histogram"}
+              className={`energy-trend-chart-toggle-btn${chartType === "histogram" ? " is-active" : ""}`}
+              onClick={() => setChartType("histogram")}
+              aria-label="Histogram"
+              title="Histogram"
+            >
+              <BarChart3 size={14} />
+            </button>
+          </div>
+          <button type="button" className="energy-trend-close" onClick={onClose} aria-label="Close trend">
+            <X size={14} />
+          </button>
+        </div>
       </div>
       <div className="energy-trend-chart-wrap">
         <svg width="100%" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="energy-trend-svg">
@@ -133,13 +162,40 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
                 </g>
               );
             })}
-            <polygon points={areaPts} fill="url(#energyTrendFill)" />
-            <polyline points={linePts} fill="none" stroke="var(--primary)" strokeWidth={2} />
-            {data.map((v, i) => (
-              <circle key={i} cx={xFor(i)} cy={yFor(v)} r={i === peakIdx ? 4 : 2.5} fill="var(--primary)">
-                <title>{`${HOUR_LABELS[i]}: ${fmt(v)} kWh`}</title>
-              </circle>
-            ))}
+            {chartType === "line" ? (
+              <>
+                <polygon points={areaPts} fill="url(#energyTrendFill)" />
+                <polyline points={linePts} fill="none" stroke="var(--primary)" strokeWidth={2} />
+                {data.map((v, i) => (
+                  <circle key={i} cx={xFor(i)} cy={yFor(v)} r={i === peakIdx ? 4 : 2.5} fill="var(--primary)">
+                    <title>{`${HOUR_LABELS[i]}: ${fmt(v)} kWh`}</title>
+                  </circle>
+                ))}
+              </>
+            ) : (
+              <>
+                {data.map((v, i) => {
+                  const bx = xFor(i) - barW / 2;
+                  const by = yFor(v);
+                  const bh = innerH - by;
+                  return (
+                    <rect
+                      key={i}
+                      x={bx}
+                      y={by}
+                      width={barW}
+                      height={bh}
+                      rx={2}
+                      fill={i === peakIdx ? "var(--primary)" : "url(#energyTrendFill)"}
+                      stroke="var(--primary)"
+                      strokeWidth={i === peakIdx ? 0 : 1}
+                    >
+                      <title>{`${HOUR_LABELS[i]}: ${fmt(v)} kWh`}</title>
+                    </rect>
+                  );
+                })}
+              </>
+            )}
             <line x1={0} x2={innerW} y1={innerH} y2={innerH} stroke="var(--border)" />
             {HOUR_LABELS.map((label, i) => {
               if (i % 3 !== 0) return null;
