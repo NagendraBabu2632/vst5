@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronRight, TrendingUp, X } from "lucide-react";
+import { BarChart3, ChevronRight, LineChart as LineChartIcon, TrendingUp, X } from "lucide-react";
 import { HOUR_LABELS, energyTree, sumHourly, type EnergyTreeAsset, type EnergyTreeLine, type EnergyTreeUnit } from "@/data/energyTreeData";
 import "./EnergyTreeTable.css";
 
