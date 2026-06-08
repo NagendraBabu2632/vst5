@@ -257,5 +257,33 @@
 }
 .energy-trend-close:hover { background: var(--muted); color: var(--foreground); }
 
+.energy-trend-actions { display: inline-flex; align-items: center; gap: 0.5rem; }
+.energy-trend-chart-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  background: var(--muted);
+  border-radius: 0.4rem;
+}
+.energy-trend-chart-toggle-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted-foreground);
+  padding: 5px 8px;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s, color 0.15s;
+}
+.energy-trend-chart-toggle-btn:hover { color: var(--foreground); }
+.energy-trend-chart-toggle-btn.is-active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
 .energy-trend-chart-wrap { width: 100%; }
 .energy-trend-svg { display: block; width: 100%; height: auto; }
