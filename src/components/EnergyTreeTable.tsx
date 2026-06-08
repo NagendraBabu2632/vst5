@@ -93,6 +93,9 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
   const yTicks = 4;
   const totalKwh = sumArr(data);
   const peakIdx = data.indexOf(Math.max(...data));
+  const minVal = Math.min(...data);
+  const maxVal = Math.max(...data);
+  const avgVal = data.length ? totalKwh / data.length : 0;
 
   return (
     <div className="energy-trend-panel">
@@ -100,6 +103,11 @@ const AssetTrendChart = ({ asset, onClose }: { asset: EnergyTreeAsset; onClose: 
         <div>
           <div className="energy-trend-eyebrow"><TrendingUp size={12} /> Asset Trend</div>
           <h4 className="energy-trend-title">{asset.name}</h4>
+          <div className="energy-trend-stats">
+            <span><span className="energy-trend-stat-label">Min</span> <strong>{fmt(minVal)} kWh</strong></span>
+            <span><span className="energy-trend-stat-label">Max</span> <strong>{fmt(maxVal)} kWh</strong></span>
+            <span><span className="energy-trend-stat-label">Average</span> <strong>{fmt(avgVal)} kWh</strong></span>
+          </div>
           <div className="energy-trend-meta">
             Total <strong>{fmt(totalKwh)} kWh</strong> · Peak <strong>{HOUR_LABELS[peakIdx]}</strong> ({fmt(data[peakIdx])} kWh)
           </div>
