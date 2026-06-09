@@ -95,7 +95,11 @@ export const SPCTimeseriesChart = ({
 
           {/* SPC zones / sigma bands */}
           {showSPCRules && sigmaBands && (() => {
-            const { avg: a, sigma: s } = sigmaBands;
+            const a = sigmaBands.avg;
+            const ucl = config.ucl;
+            const lcl = config.lcl;
+            const upStep = (ucl - a) / 3;
+            const downStep = (a - lcl) / 3;
             const clampY = (v: number) => Math.max(0, Math.min(innerH, y(v)));
             const band = (lo: number, hi: number, fill: string, op: number) => {
               const y1 = clampY(hi); const y2 = clampY(lo);
@@ -103,11 +107,12 @@ export const SPCTimeseriesChart = ({
             };
             return (
               <>
-                {band(a - s, a + s, "hsl(145, 60%, 55%)", 0.22)}
-                {band(a + s, a + 2 * s, "hsl(42, 95%, 55%)", 0.26)}
-                {band(a - 2 * s, a - s, "hsl(42, 95%, 55%)", 0.26)}
-                {band(a + 2 * s, a + 3 * s, "hsl(0, 75%, 60%)", 0.25)}
-                {band(a - 3 * s, a - 2 * s, "hsl(0, 75%, 60%)", 0.25)}
+                {band(a, a + upStep, "hsl(145, 60%, 55%)", 0.22)}
+                {band(a + upStep, a + 2 * upStep, "hsl(42, 95%, 55%)", 0.26)}
+                {band(a + 2 * upStep, ucl, "hsl(0, 75%, 60%)", 0.25)}
+                {band(a - downStep, a, "hsl(145, 60%, 55%)", 0.22)}
+                {band(a - 2 * downStep, a - downStep, "hsl(42, 95%, 55%)", 0.26)}
+                {band(lcl, a - 2 * downStep, "hsl(0, 75%, 60%)", 0.25)}
               </>
             );
           })()}
